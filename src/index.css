@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base layer ───────────────────────────────────────────────────── */
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-white antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* ── Reusable component classes ───────────────────────────────────── */
+
+@layer components {
+  /* Frosted-glass card */
+  .glass-card {
+    @apply bg-white/[0.04] backdrop-blur-2xl
+           border border-white/[0.08]
+           rounded-2xl shadow-2xl;
+  }
+
+  /* Primary action button (indigo→violet gradient) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-3.5 rounded-xl font-semibold text-white
+           bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500
+           hover:from-indigo-400 hover:via-violet-400 hover:to-purple-400
+           shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40
+           transition-all duration-300 ease-out
+           disabled:opacity-40 disabled:cursor-not-allowed
+           disabled:hover:shadow-indigo-500/25;
+  }
+
+  /* Success / download button (emerald→teal gradient) */
+  .btn-success {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-3.5 rounded-xl font-semibold text-white
+           bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500
+           hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400
+           shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40
+           transition-all duration-300 ease-out
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+}
+
+/* ── Custom scrollbar ─────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-white/30;
+}
