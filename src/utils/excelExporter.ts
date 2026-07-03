@@ -15,9 +15,9 @@
  *            3%     …
  */
 
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
-import type { SummaryRow } from '../types';
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import type { SummaryRow } from "../types";
 
 /**
  * Build a Summary.xlsx in the vertical 3-row-per-rubber format and
@@ -34,11 +34,11 @@ export function exportSummaryToExcel(summary: SummaryRow[]): void {
 
     const startRow = aoa.length; // 0-indexed row where this group begins jojo
     // Row 1: MainRubber | 10% | list  (name goes here — top-left of merge)
-    aoa.push([row.mainRubber, '10%', row.pct10.join(',')]);
+    aoa.push([row.mainRubber, "10%", row.pct10.join(",")]);
     // Row 2: (blank) | 5% | list
-    aoa.push([undefined, '5%', row.pct5.join(',')]);
+    aoa.push([undefined, "5%", row.pct5.join(",")]);
     // Row 3: (blank) | 3% | list
-    aoa.push([undefined, '3%', row.pct3.join(',')]);
+    aoa.push([undefined, "3%", row.pct3.join(",")]);
 
     // Merge column A across the 3 rows so the rubber name is centred
     merges.push({
@@ -56,25 +56,27 @@ export function exportSummaryToExcel(summary: SummaryRow[]): void {
   const ws = XLSX.utils.aoa_to_sheet(aoa);
 
   // Apply vertical merges
-  ws['!merges'] = merges;
+  ws["!merges"] = merges;
 
   // Column widths
-  ws['!cols'] = [
+  ws["!cols"] = [
     { wch: 12 }, // A — Main Rubber
-    { wch: 6 },  // B — 10% / 5% / 3%
+    { wch: 6 }, // B — 10% / 5% / 3%
     { wch: 40 }, // C — rubber list
   ];
 
   // Assemble workbook
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Summary');
+  XLSX.utils.book_append_sheet(wb, ws, "Summary");
 
   // Write to binary array → Blob → saveAs (file-saver handles filename reliably)
-  const wbOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' }) as ArrayBuffer;
+  const wbOut = XLSX.write(wb, {
+    bookType: "xlsx",
+    type: "array",
+  }) as ArrayBuffer;
   const blob = new Blob([wbOut], {
-    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
 
-  saveAs(blob, 'Summary.xlsx');
+  saveAs(blob, "Summary.xlsx");
 }
-
