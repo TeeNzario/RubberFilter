@@ -34,10 +34,10 @@ export function exportSummaryToExcel(summary: SummaryRow[]): void {
 
     const startRow = aoa.length; // 0-indexed row where this group begins
 
-    // Row 1: (blank) | 10% | list
-    aoa.push([undefined, '10%', row.pct10.join(',')]);
-    // Row 2: MainRubber | 5% | list
-    aoa.push([row.mainRubber, '5%', row.pct5.join(',')]);
+    // Row 1: MainRubber | 10% | list  (name goes here — top-left of merge)
+    aoa.push([row.mainRubber, '10%', row.pct10.join(',')]);
+    // Row 2: (blank) | 5% | list
+    aoa.push([undefined, '5%', row.pct5.join(',')]);
     // Row 3: (blank) | 3% | list
     aoa.push([undefined, '3%', row.pct3.join(',')]);
 

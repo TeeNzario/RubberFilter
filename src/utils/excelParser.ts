@@ -2,12 +2,12 @@
  * Excel parser for the fixed Rubber Stock template.
  *
  * HARDCODED LAYOUT (based on the provided screenshot):
- *   Row 5  → Main Rubber headers (T258, T419, T502, …)
- *   Col C  → Secondary Rubber labels (T514, T573, T582, …)
- *   Col D+ → Start of Main Rubber columns
- *   D6+    → Matrix values (3 | 5 | 10 | X | empty)
+ *   Row 5  → Main Rubber headers (T555, T485, T898, …)
+ *   Col D  → Secondary Rubber labels (T555, T485, T898, …)
+ *   Col E+ → Start of Main Rubber columns
+ *   E6+    → Matrix values (3 | 5 | 10 | X | empty)
  *
- * The title / merged "BASE" rows above the matrix are ignored entirely.
+ * The title / merged rows above the matrix are ignored entirely.
  */
 
 import * as XLSX from 'xlsx';
@@ -21,11 +21,11 @@ const HEADER_ROW = 4;
 /** First data row (Excel row 6). */
 const DATA_START_ROW = 5;
 
-/** Column index for Secondary Rubber names (Excel column C). */
-const SECONDARY_COL = 2;
+/** Column index for Secondary Rubber names (Excel column D). */
+const SECONDARY_COL = 3;
 
-/** First Main Rubber data column (Excel column D). */
-const MAIN_START_COL = 3;
+/** First Main Rubber data column (Excel column E). */
+const MAIN_START_COL = 4;
 
 /** Pattern that matches a T-code like T258, T514, etc. */
 const T_CODE = /^T\d+$/i;
@@ -100,7 +100,7 @@ export function parseExcelFile(buffer: ArrayBuffer): MatrixData {
 
   if (mainCols.length === 0) {
     throw new Error(
-      'No Main Rubber headers found in row 5 (starting from column D). ' +
+      'No Main Rubber headers found in row 5 (starting from column E). ' +
         'Make sure the file follows the expected template.',
     );
   }
@@ -116,7 +116,7 @@ export function parseExcelFile(buffer: ArrayBuffer): MatrixData {
 
   if (secRows.length === 0) {
     throw new Error(
-      'No Secondary Rubber names found in column C (starting from row 6). ' +
+      'No Secondary Rubber names found in column D (starting from row 6). ' +
         'Make sure the file follows the expected template.',
     );
   }
