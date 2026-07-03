@@ -32,8 +32,7 @@ export function exportSummaryToExcel(summary: SummaryRow[]): void {
     const row = summary[i];
     if (!row) continue;
 
-    const startRow = aoa.length; // 0-indexed row where this group begins
-
+    const startRow = aoa.length; // 0-indexed row where this group begins jojo
     // Row 1: MainRubber | 10% | list  (name goes here — top-left of merge)
     aoa.push([row.mainRubber, '10%', row.pct10.join(',')]);
     // Row 2: (blank) | 5% | list
